@@ -1,10 +1,13 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Firebase.Database;
+using Firebase.Database.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,9 +41,17 @@ namespace GuessThePicBeta4
 
         }
 
-        private void OnClick(object sender, EventArgs e)
-{
+        private async void OnClick(object sender, EventArgs e)
+        {
+            FirebaseClient firebase = new FirebaseClient(
+                "https://guess-the-pic-a861a-default-rtdb.europe-west1.firebasedatabase.app/");
             Toast.MakeText(this, "button worked", ToastLength.Long).Show();
+            string imageData = await firebase.Child("Games").Child("-Nhq0zFgs8L2MAByvtWe").OnceSingleAsync<string>();
+            byte[] imageBytes = Convert.FromBase64String(imageData);
+            // Create a Bitmap from the byte array
+            Bitmap bitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+            image.SetImageBitmap(bitmap);
         }
+        //-Nhq0zFgs8L2MAByvtWe
     }
 }

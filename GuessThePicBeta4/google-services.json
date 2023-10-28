@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "826504093195",
+    "firebase_url": "https://guess-the-pic-a861a-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "guess-the-pic-a861a",
+    "storage_bucket": "guess-the-pic-a861a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826504093195:android:a56c884a380cb651ba310e",
+        "android_client_info": {
+          "package_name": "GuessThePic.GuessThePic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAv6dStOVBvRwkPGANbgD4x2XHUKHIddPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

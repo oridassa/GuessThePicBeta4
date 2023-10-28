@@ -36,6 +36,14 @@
         android:onClick="onClick"
         android:layout_margin="10dp"
         />
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:id="@+id/check"
+        android:text="premission check"
+        android:layout_margin="10dp"
+        />
+    
 
 
 </LinearLayout>
