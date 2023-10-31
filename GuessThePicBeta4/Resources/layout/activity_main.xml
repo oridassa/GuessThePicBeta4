@@ -19,6 +19,7 @@
         android:layout_height="60dp"
         android:id="@+id/name"
         android:hint="Enter name"        
+        android:inputType="text"
         />
     <Button
         android:layout_width="300dp"

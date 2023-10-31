@@ -65,6 +65,8 @@
     <Compile Include="GameplayScreen.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="PlayerProperties.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

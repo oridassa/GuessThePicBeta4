@@ -4,6 +4,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Firebase.Database;
+using Firebase.Database.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +16,15 @@ namespace GuessThePicBeta4
     [Activity(Label = "LoginActivity")]
     public class LoginActivity : Activity, View.IOnClickListener
     {
-        private EditText gameid;
+        private EditText gameidinput;
+        private FirebaseClient firebase = new FirebaseClient(
+            "https://guess-the-pic-a861a-default-rtdb.europe-west1.firebasedatabase.app/");
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.login_screen);
 
-            this.gameid = FindViewById<EditText>(Resource.Id.gameid);
+            this.gameidinput = FindViewById<EditText>(Resource.Id.gameid);
         }
         public void OnClick(View v)
         {
@@ -35,8 +39,6 @@ namespace GuessThePicBeta4
             {
                 intent = new Intent(this, typeof(GameLobbyPlayer));
                 base.StartActivity(intent);
-                //joining a game
-                //need to check if the gameid is ok and active
             }
         }
     }

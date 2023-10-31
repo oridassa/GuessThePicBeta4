@@ -21,6 +21,7 @@ namespace GuessThePicBeta4
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, View.IOnClickListener
     {
+        private EditText nameInput;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -29,6 +30,8 @@ namespace GuessThePicBeta4
             SetContentView(Resource.Layout.activity_main);
             Button btn = FindViewById<Button>(Resource.Id.check);
             btn.Click += RequestPrem;
+
+            nameInput = FindViewById<EditText>(Resource.Id.name);
         }
 
         private async void RequestPrem(object sender, EventArgs e)
@@ -48,17 +51,36 @@ namespace GuessThePicBeta4
         
         public void OnClick(View v)
         {
+            string name = nameInput.Text.ToString();
             Intent intent;
             Button b = (Button)v;
             if (b.Text == "Create a game")
             {
-                intent = new Intent(this, typeof(GameLobbyHost));
-                base.StartActivity(intent);
+                if (name == "")
+                {
+                    Toast.MakeText(this, "please enter a name", ToastLength.Short).Show();
+                }
+                else
+                {
+                    PlayerProperties.Setname(name);
+                    intent = new Intent(this, typeof(GameLobbyHost));
+                    base.StartActivity(intent);
+                }
             }
             else if (b.Text == "Join a game")
             {
-                intent = new Intent(this, typeof(LoginActivity));
-                base.StartActivity(intent);
+                if (name == "")
+                {
+                    Toast.MakeText(this, "please enter a name", ToastLength.Short).Show();
+                }
+                else
+                {
+                    PlayerProperties.Setname(name);
+                    intent = new Intent(this, typeof(LoginActivity));
+                    base.StartActivity(intent);
+                }
+
+                
             }
             
         }
