@@ -11,10 +11,12 @@ using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.Widget;
 using AndroidX.Core.App;
+using Firebase;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+
 
 namespace GuessThePicBeta4
 {
@@ -28,6 +30,9 @@ namespace GuessThePicBeta4
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
+
+            FirebaseApp.InitializeApp(this);
+
             Button btn = FindViewById<Button>(Resource.Id.check);
             btn.Click += RequestPrem;
 

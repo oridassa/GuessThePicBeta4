@@ -29,12 +29,13 @@ using static AndroidX.RecyclerView.Widget.RecyclerView;
 using System.Reactive.Linq;
 using System.Reflection;
 
+
 namespace GuessThePicBeta4
 {
     [Activity(Label = "GameLobbyHost")]
     public class GameLobbyHost : Activity, View.IOnClickListener
     {
-        private FirebaseClient firebase = new FirebaseClient(
+        private FirebaseClient firebase = new Firebase.Database.FirebaseClient(
        "https://guess-the-pic-a861a-default-rtdb.europe-west1.firebasedatabase.app/");
         ListView listView;
         TextView gameidview;
@@ -44,7 +45,7 @@ namespace GuessThePicBeta4
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.game_lobby_host);
-
+                
             player = new Player(PlayerProperties.name);
 
             listView = FindViewById<ListView>(Resource.Id.list123);
@@ -137,7 +138,7 @@ namespace GuessThePicBeta4
         {
             FirebaseClient firebase = new FirebaseClient(
                 "https://guess-the-pic-a861a-default-rtdb.europe-west1.firebasedatabase.app/");
-            string playersarray = PlayerProperties.name + ",";
+            string playersarray = PlayerProperties.name;
             await firebase.Child("Games").Child(gameid).Child("playersarray").PutAsync<string>(playersarray);
             await firebase.Child("Games").Child(gameid).Child("players").Child(PlayerProperties.name).PutAsync<Player>(player);
             return true;
@@ -146,12 +147,6 @@ namespace GuessThePicBeta4
         public async void UpdatePlayerArray() //updates the Listview that show the players in the lobby
         {
             ArrayAdapter<string> adapter;
-            //string playersarray = await firebase.Child("Games").Child(gameid).Child("playersarray")
-            //    .OnceSingleAsync<string>();
-            //string[] arr = playersarray.Split(',');
-            //adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, arr);
-            //this.listView.Adapter = adapter;
-
             var observable = firebase.Child("Games").Child(gameid).Child("playersarray")
                 .AsObservable<string>().Subscribe(x =>
                 {
@@ -159,9 +154,7 @@ namespace GuessThePicBeta4
                     string[] arr = x.Object.Split(',');
                     ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, arr);
                     this.listView.Adapter = adapter;
-                    Try();
                 }); // !!!!NEED TO ASK AMOS WHY THIS ISN'T WORKING!!!!
-            //Try();
             string str = await firebase.Child("Games").Child(gameid).Child("playersarray").OnceSingleAsync<string>();
             try
             {
@@ -171,55 +164,13 @@ namespace GuessThePicBeta4
             }
             catch (System.Exception ex)
             {
-                Toast.MakeText(this, "arr" + ex.Message, ToastLength.Short).Show();
+                Toast.MakeText(this, "arr " + ex.Message, ToastLength.Short).Show();
             }
-            
-
-            
-        }
-        private async void Try()
-        {
-            try
-            {
-                var x = await firebase.Child("Games").Child(gameid).Child("playersarray")
-                                    .OnceSingleAsync<string>();
-                string[] arr = x.Split(",");
-                ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, arr);
-                this.listView.Adapter = adapter;
-            } catch (System.Exception ex)
-            {
-                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-            }
-            
-        }
-        private async void subscribe()
-        {
-            var reference = firebase.Child("Games").Child(gameid);
-            Toast.MakeText(this, "in func", ToastLength.Short).Show();
-            string data = await reference.OnceSingleAsync<string>();
-            Toast.MakeText(this, data, ToastLength.Short).Show();
-
-            string[] arr = data.Split(",");
-            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, arr);
-            this.listView.Adapter = adapter;
-
-            var dispose = reference.AsObservable<string>().Subscribe(data =>
-            {
-                Toast.MakeText(this, data.Object, ToastLength.Short).Show();
-                Toast.MakeText(this, "in the func", ToastLength.Short).Show();
-                if (data.Object != null)
-                {
-                    string[] arr = data.Object.Split(",");
-                    ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, arr);
-                    this.listView.Adapter = adapter;
-                }
-            });
         }
         private async void CreateGame()
         {
             CreateGameId();
             await InitiatePlayers();
-            //UpdatePlayerArray();
             UpdatePlayerArray();
         }
     }
