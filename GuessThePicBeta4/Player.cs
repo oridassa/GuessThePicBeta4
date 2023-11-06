@@ -32,5 +32,6 @@ namespace GuessThePicBeta4
             newarr[pictures.Length] = picturebase64;
             pictures = newarr;
         }
+        public string[] GetPicture() { return  pictures; }
     }
 }

@@ -60,6 +60,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FirebaseActions.cs" />
     <Compile Include="GameLobbyHost.cs" />
     <Compile Include="GameLobbyPlayer.cs" />
     <Compile Include="GameplayScreen.cs" />

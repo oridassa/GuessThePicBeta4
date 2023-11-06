@@ -13,7 +13,6 @@ using Firebase.Database;
 using Firebase.Database.Query;
 using System.Security.Cryptography.X509Certificates;
 using Javax.Security.Auth;
-using Java.Lang;
 using System.Drawing;
 using System.ComponentModel;
 using System.Security.AccessControl;
@@ -26,15 +25,15 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.Tracing;
 using static AndroidX.RecyclerView.Widget.RecyclerView;
-using System.Reactive.Linq;
 using System.Reflection;
-
+using Android.App.Backup;
 
 namespace GuessThePicBeta4
 {
     [Activity(Label = "GameLobbyHost")]
     public class GameLobbyHost : Activity, View.IOnClickListener
     {
+        private FirebaseActions fbactions;
         private FirebaseClient firebase = new Firebase.Database.FirebaseClient(
        "https://guess-the-pic-a861a-default-rtdb.europe-west1.firebasedatabase.app/");
         ListView listView;
@@ -45,7 +44,11 @@ namespace GuessThePicBeta4
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.game_lobby_host);
-                
+
+            FirebaseApp.InitializeApp(this);
+
+            fbactions = new FirebaseActions("https://guess-the-pic-a861a-default-rtdb.europe-west1.firebasedatabase.app/");
+
             player = new Player(PlayerProperties.name);
 
             listView = FindViewById<ListView>(Resource.Id.list123);
@@ -125,37 +128,39 @@ namespace GuessThePicBeta4
             return sixDigitNumber;
         }
 
-        private async void CreateGameId() //creates a random gameid and creates a json object in the Games section
+        private void CreateGameId() //creates a random gameid and creates a json object in the Games section
         {
             Random rand = new Random();
             gameid = $"{rand.Next(100000, 1000000)}";
             //string gameid = await GetUnusedSixDigitNumber();
-            gameidview.Text = gameid;
-            await firebase.Child("Games").Child(gameid).Child("gamid").PutAsync<string>(gameid);
 
+            fbactions.GameLobbyInit(gameid); //need to add a check if the gameid already exists
+            gameidview.Text = gameid;
         }
         public async Task<bool> InitiatePlayers() //create a Player object for host and initiate playersarray with his name
         {
-            FirebaseClient firebase = new FirebaseClient(
-                "https://guess-the-pic-a861a-default-rtdb.europe-west1.firebasedatabase.app/");
-            string playersarray = PlayerProperties.name;
-            await firebase.Child("Games").Child(gameid).Child("playersarray").PutAsync<string>(playersarray);
-            await firebase.Child("Games").Child(gameid).Child("players").Child(PlayerProperties.name).PutAsync<Player>(player);
-            return true;
+            bool result = await fbactions.GameLobbyPlayersInit(gameid, player);
+            return result;
 
         }
         public async void UpdatePlayerArray() //updates the Listview that show the players in the lobby
         {
-            ArrayAdapter<string> adapter;
             var observable = firebase.Child("Games").Child(gameid).Child("playersarray")
                 .AsObservable<string>().Subscribe(x =>
                 {
                     Toast.MakeText(this, "entered asobservable", ToastLength.Short).Show();
+                    gameidview.Text = x.ToString();
                     string[] arr = x.Object.Split(',');
                     ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, arr);
                     this.listView.Adapter = adapter;
+                    SetPlayerListview();
                 }); // !!!!NEED TO ASK AMOS WHY THIS ISN'T WORKING!!!!
-            string str = await firebase.Child("Games").Child(gameid).Child("playersarray").OnceSingleAsync<string>();
+            SetPlayerListview();
+        }
+        public async void SetPlayerListview()
+        {
+            ArrayAdapter<string> adapter;
+            string str = await fbactions.GetPlayerArray(gameid);
             try
             {
                 string[] arr = str.Split(',');
