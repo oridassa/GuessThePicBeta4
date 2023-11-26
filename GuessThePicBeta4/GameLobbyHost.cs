@@ -27,19 +27,24 @@ using System.Diagnostics.Tracing;
 using static AndroidX.RecyclerView.Widget.RecyclerView;
 using System.Reflection;
 using Android.App.Backup;
+using System.Reactive.Linq;
+using System.Collections.ObjectModel;
 
 namespace GuessThePicBeta4
 {
     [Activity(Label = "GameLobbyHost")]
-    public class GameLobbyHost : Activity, View.IOnClickListener
+    public class GameLobbyHost : Activity, View.IOnClickListener, IDisposable
     {
         private FirebaseActions fbactions;
-        private FirebaseClient firebase = new Firebase.Database.FirebaseClient(
+        private FirebaseClient firebase = new FirebaseClient(
        "https://guess-the-pic-a861a-default-rtdb.europe-west1.firebasedatabase.app/");
         ListView listView;
         TextView gameidview;
         private string gameid;
         Player player;
+        IDisposable subscription;
+
+        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -106,6 +111,7 @@ namespace GuessThePicBeta4
         }
         public async void EndGame() 
         {
+            //subscription.Dispose();
             await firebase.Child("Games").Child(gameid).DeleteAsync();        
         }
 
@@ -143,20 +149,22 @@ namespace GuessThePicBeta4
             return result;
 
         }
-        public async void UpdatePlayerArray() //updates the Listview that show the players in the lobby
+        public void UpdatePlayerArray() //updates the Listview that show the players in the lobby
         {
-            var observable = firebase.Child("Games").Child(gameid).Child("playersarray")
-                .AsObservable<string>().Subscribe(x =>
-                {
-                    Toast.MakeText(this, "entered asobservable", ToastLength.Short).Show();
-                    gameidview.Text = x.ToString();
-                    string[] arr = x.Object.Split(',');
-                    ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, arr);
-                    this.listView.Adapter = adapter;
-                    SetPlayerListview();
-                }); // !!!!NEED TO ASK AMOS WHY THIS ISN'T WORKING!!!!
             SetPlayerListview();
-        }
+            var subscription1 = firebase.Child("Games").Child(gameid).Child("playersarray")
+            .AsObservable<string>()
+            .Subscribe((x) =>
+            {
+                SetPlayerListview(x.Object);
+                //Toast.MakeText(this, "entered asobservable", ToastLength.Short).Show();
+                //gameidview.Text = x.ToString();
+                //string[] arr = x.Object.Split(',');
+                //ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, arr);
+                //this.listView.Adapter = adapter;
+            } ); // !!!!NEED TO ASK AMOS WHY THIS ISN'T WORKING!!!!
+            //trying
+        }   
         public async void SetPlayerListview()
         {
             ArrayAdapter<string> adapter;
@@ -171,6 +179,15 @@ namespace GuessThePicBeta4
             {
                 Toast.MakeText(this, "arr " + ex.Message, ToastLength.Short).Show();
             }
+        }
+        public void SetPlayerListview(string str)
+        {
+            Toast.MakeText(this, "entered asobservable", ToastLength.Short).Show();
+            ArrayAdapter<string> adapter;
+            string[] arr = str.Split(',');
+            adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, arr);
+            this.listView.Adapter = adapter;
+            
         }
         private async void CreateGame()
         {

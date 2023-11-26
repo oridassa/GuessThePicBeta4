@@ -33,10 +33,29 @@ namespace GuessThePicBeta4
 
             image.SetImageResource(Resource.Drawable.dog);
             Button b1 = new Button(this);
-            b1.Text = "player 1";
+            b1.Text = "ori";
             b1.TextSize = 20;
+            Button b2 = new Button(this);
+            b2.Text = "amos";
+            b2.TextSize = 20;
+            Button b3 = new Button(this);
+            b3.Text = "mori";
+            Button b4 = new Button(this);
+            b4.Text = "shaked";
+            b4.TextSize = 20;
+            Button b5 = new Button(this);
+            b5.Text = "noam";
+            b5.TextSize = 20;
+            Button b6 = new Button(this);
+            b6.Text = "gili";
+            b6.TextSize = 20;
             b1.Click += OnClick;
             grid.AddView(b1);
+            grid.AddView(b2);
+            grid.AddView(b3);
+            grid.AddView(b4);
+            grid.AddView(b5);
+            grid.AddView(b6);
 
 
         }
