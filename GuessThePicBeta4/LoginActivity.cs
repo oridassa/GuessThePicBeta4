@@ -19,6 +19,10 @@ namespace GuessThePicBeta4
         private EditText gameidinput;
         private FirebaseClient firebase = new FirebaseClient(
             "https://guess-the-pic-a861a-default-rtdb.europe-west1.firebasedatabase.app/");
+
+        //
+        private FirebaseActions FirebaseActions;
+        //
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

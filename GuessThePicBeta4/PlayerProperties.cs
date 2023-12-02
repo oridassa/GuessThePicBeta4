@@ -16,7 +16,8 @@ namespace GuessThePicBeta4
 {
     public class PlayerProperties
     {
-        public static string name;
+        public Player playerPointer;
+        public static string name { get; set; }
         public static void Setname(string n) => name = n;
         public static void DeleteName() => name = "";
     }

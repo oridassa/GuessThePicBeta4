@@ -22,6 +22,12 @@ namespace GuessThePicBeta4
         private TextView roundcounter;
         private ImageView image;
         private GridLayout grid;
+
+        //
+        private Image image2;
+        //
+
+        private Gameplay gameplay;//add resposibilities later
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -59,7 +65,6 @@ namespace GuessThePicBeta4
 
 
         }
-
         private async void OnClick(object sender, EventArgs e)
         {
             FirebaseClient firebase = new FirebaseClient(

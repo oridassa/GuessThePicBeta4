@@ -44,6 +44,8 @@ namespace GuessThePicBeta4
         Player player;
         IDisposable subscription;
 
+        private PictureTransport pt;
+
         
         protected override void OnCreate(Bundle savedInstanceState)
         {

@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GuessThePicBeta4.FirebaseActions" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAEAAAACgAAAAAQAAAEBAAAAAAAQAAAAA=</HashCode>
+      <FileName>FirebaseActions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GuessThePicBeta4.GameLobbyHost" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgEAAAAAAAAACEAACAAACQCAgAFABAAIAAYEQAAI=</HashCode>
+      <FileName>GameLobbyHost.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="fbactions" />
+      <Field Name="firebase" />
+      <Field Name="player" />
+      <Field Name="pt" />
+    </ShowAsAssociation>
+    <Lollipop Orientation="Left" Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="GuessThePicBeta4.GameLobbyPlayer" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgEAAAAAAAAAAAAAAAAACACAAAFABAAAAAYEAAAA=</HashCode>
+      <FileName>GameLobbyPlayer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pt" />
+      <Field Name="fbactions" />
+      <Field Name="firebase" />
+      <Field Name="player" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GuessThePicBeta4.Gameplay">
+    <Position X="10" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Gameplay.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="timeManager" />
+      <Field Name="pointevents" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GuessThePicBeta4.GameplayScreen">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAQAAAAAAAAACECAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>GameplayScreen.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="image2" />
+      <Field Name="gameplay" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GuessThePicBeta4.Image" Collapsed="true">
+    <Position X="5.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAgAAAACAAAAAAAAAAAAAAAAAQAAAAAAAAACAA=</HashCode>
+      <FileName>Image.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GuessThePicBeta4.LoginActivity" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABCACAAABAAAAAEAAAAAAA=</HashCode>
+      <FileName>LoginActivity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="firebase" />
+      <Field Name="FirebaseActions" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GuessThePicBeta4.MainActivity" BaseTypeListCollapsed="true">
+    <Position X="1.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAIAgAAAACACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainActivity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GuessThePicBeta4.Player" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAEAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GuessThePicBeta4.PlayerProperties">
+    <Position X="0.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAEAABAAAAAAAABAAA=</HashCode>
+      <FileName>PlayerProperties.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="playerPointer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GuessThePicBeta4.PointEvents" Collapsed="true">
+    <Position X="11" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PointEvents.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GuessThePicBeta4.TimeManager" Collapsed="true">
+    <Position X="12.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TimeManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GuessThePicBeta4.PictureTransport">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PictureTransport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Firebase.Database.FirebaseClient" Collapsed="true">
+    <Position X="5.5" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
